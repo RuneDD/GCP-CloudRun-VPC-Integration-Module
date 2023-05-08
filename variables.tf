@@ -22,6 +22,10 @@ variable "vpc_subnet_ip_cidr_range" {
   default     = "10.0.0.0/24"
 }
 
+variable "vpc_access_connector" {
+  description = "The VPC access connector to use for the Cloud Run service."
+}
+
 variable "artifact_registry_name" {
   description = "The name of the Artifact Registry to create."
   default     = "${var.project_id}-registry"
@@ -40,4 +44,8 @@ variable "cloud_run_service_name" {
 variable "cloud_run_service_image_name" {
   description = "The name of the image to use for the Cloud Run service."
   default     = "${var.project_id}-image"
+}
+
+variable "cloud_run_service_account" {
+  description = "The service account used to run the service."
 }
