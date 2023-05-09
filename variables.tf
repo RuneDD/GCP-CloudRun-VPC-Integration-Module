@@ -9,12 +9,12 @@ variable "region" {
 
 variable "vpc_network_name" {
   description = "The name of the VPC network to create."
-  default     = "${var.project_id}-vpc"
+  default     = "vpc-network"
 }
 
 variable "vpc_subnet_name" {
   description = "The name of the VPC subnet to create."
-  default     = "${var.project_id}-vpc-sub"
+  default     = "vpc-sub-network"
 }
 
 variable "vpc_subnet_ip_cidr_range" {
@@ -34,22 +34,27 @@ variable "vpc_connector_machine_type" {
 
 variable "artifact_registry_name" {
   description = "The name of the Artifact Registry to create."
-  default     = "${var.project_id}-registry"
+  default     = "artifacts-registry"
 }
 
 variable "artifact_registry_location" {
   description = "The location of the Artifact Registry."
-  default     = var.region
+  default     = "us-central1"
 }
 
 variable "cloud_run_service_name" {
   description = "The name of the Cloud Run service to create."
-  default     = "${var.project_id}-service"
+  default     = "cloud-run-service"
 }
 
 variable "cloud_run_service_image_name" {
   description = "The name of the image to use for the Cloud Run service."
-  default     = "${var.project_id}-image"
+  default     = "cloud-run-service-image"
+}
+
+variable "cloud_run_service_image_version" {
+  description = "The version of the container to use for the Cloud Run service."
+  default     = "latest"
 }
 
 variable "cloud_run_service_account" {
