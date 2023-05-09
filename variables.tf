@@ -22,8 +22,14 @@ variable "vpc_subnet_ip_cidr_range" {
   default     = "10.0.0.0/24"
 }
 
-variable "vpc_access_connector" {
-  description = "The VPC access connector to use for the Cloud Run service."
+variable "vpc_connector_name" {
+  description = "The name of the VPC connector."
+  default     = "vpc-access-connector"
+}
+
+variable "vpc_connector_machine_type" {
+  description = "The machine type of the VPC access connector."
+  default     = "e2-micro"
 }
 
 variable "artifact_registry_name" {
