@@ -1,3 +1,6 @@
+# Terraform executables
+terraform.exe
+
 # Local .terraform directories
 **/.terraform/*
 
