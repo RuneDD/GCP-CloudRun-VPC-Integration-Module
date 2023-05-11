@@ -52,7 +52,7 @@ variable "cloud_run_service_image_name" {
   default     = "cloud-run-service-image"
 }
 
-variable "cloud_run_service_image_version" {
+variable "cloud_run_service_container_version" {
   description = "The version of the container to use for the Cloud Run service."
   default     = "latest"
 }

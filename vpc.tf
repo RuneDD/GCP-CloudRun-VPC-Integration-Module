@@ -13,8 +13,8 @@ resource "google_compute_subnetwork" "vpc_access_connector_subnet" {
 resource "google_vpc_access_connector" "vpc_access_connector" {
   name         = var.vpc_connector_name
   region       = var.region
-  machine_type = var.vpc_machine_type
-  subnet { 
-    name = google_compute_subnetwork.vpc_access_connector_subnet.name 
+  machine_type = var.vpc_connector_machine_type
+  subnet {
+    name = google_compute_subnetwork.vpc_access_connector_subnet.name
   }
 }
