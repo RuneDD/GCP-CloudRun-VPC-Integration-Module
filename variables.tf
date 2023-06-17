@@ -1,10 +1,11 @@
 variable "project_id" {
   description = "The ID of the GCP project where the resources will be created."
+  default     = "vbridge-personal-rune"
 }
 
 variable "region" {
   description = "The region where the resources will be created."
-  default     = "us-central1"
+  default     = "europe-west1"
 }
 
 variable "vpc_network_name" {
@@ -27,6 +28,16 @@ variable "vpc_connector_name" {
   default     = "vpc-access-connector"
 }
 
+variable "vpc_connector_subnet_name" {
+  description = "The name of the VPC connector subnet to create."
+  default     = "vpc-connector-sub-network"
+}
+
+variable "vpc_connector_subnet_ip_cidr_range" {
+  description = "The IP CIDR range for the VPC connector subnet."
+  default     = "10.100.0.0/28"
+}
+
 variable "vpc_connector_machine_type" {
   description = "The machine type of the VPC access connector."
   default     = "e2-micro"
@@ -39,7 +50,7 @@ variable "artifact_registry_name" {
 
 variable "artifact_registry_location" {
   description = "The location of the Artifact Registry."
-  default     = "us-central1"
+  default     = "europe-west1"
 }
 
 variable "cloud_run_service_name" {
@@ -57,6 +68,6 @@ variable "cloud_run_service_container_version" {
   default     = "latest"
 }
 
-variable "cloud_run_service_account" {
-  description = "The service account used to run the service."
-}
+# variable "cloud_run_service_account" {
+#   description = "The service account used to run the service."
+# }
