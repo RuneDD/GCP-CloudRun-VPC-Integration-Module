@@ -22,6 +22,14 @@ crash.*.log
 *.tfvars
 *.tfvars.json
 
+# Exclude environment variables and credentials
+environments
+credentials
+
+# Exlude personal configuration
+providers.tf
+project.tf
+
 # Ignore override files as they are usually used to override resources locally and so
 # are not checked in
 override.tf
