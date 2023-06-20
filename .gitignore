@@ -21,6 +21,7 @@ crash.*.log
 # to change depending on the environment.
 *.tfvars
 *.tfvars.json
+*.auto.tfvars
 
 # Exclude environment variables and credentials
 environments
