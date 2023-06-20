@@ -1,12 +1,15 @@
+# Project variables
+
 variable "project_id" {
-  description = "The ID of the GCP project where the resources will be created."
-  default     = "vbridge-personal-rune"
+  description = "The project ID of the GCP project where the resources will be created."
 }
 
 variable "region" {
   description = "The region where the resources will be created."
   default     = "europe-west1"
 }
+
+# VPC variables
 
 variable "vpc_network_name" {
   description = "The name of the VPC network to create."
@@ -43,31 +46,82 @@ variable "vpc_connector_machine_type" {
   default     = "e2-micro"
 }
 
-variable "artifact_registry_name" {
-  description = "The name of the Artifact Registry to create."
-  default     = "artifacts-registry"
-}
-
-variable "artifact_registry_location" {
-  description = "The location of the Artifact Registry."
-  default     = "europe-west1"
-}
+# Cloud Run Service variables
 
 variable "cloud_run_service_name" {
   description = "The name of the Cloud Run service to create."
   default     = "cloud-run-service"
 }
 
-variable "cloud_run_service_image_name" {
-  description = "The name of the image to use for the Cloud Run service."
-  default     = "cloud-run-service-image"
+variable "cloud_run_container_concurrency" {
+  description = "The number of simultaneous requests that can be processed by each container"
+  default     = 30
 }
 
-variable "cloud_run_service_container_version" {
-  description = "The version of the container to use for the Cloud Run service."
-  default     = "latest"
+variable "cloud_run_timeout_seconds" {
+  description = "The time within which a response must be returned by the service in seconds"
+  default     = 180
 }
 
-# variable "cloud_run_service_account" {
-#   description = "The service account used to run the service."
-# }
+variable "cloud_run_service_account" {
+  description = "The service account used to run the service."
+}
+
+variable "cloud_run_service_image_location" {
+  description = "The location of the image to use for the Cloud Run service."
+}
+
+variable "cloud_run_cpu_request" {
+  description = "The requested cpu specs for the for the Cloud Run service."
+  default     = "1000m"
+}
+
+variable "cloud_run_memory_request" {
+  description = "The requested memory specs for the for the Cloud Run service."
+  default     = "1024Mi"
+}
+
+variable "cloud_run_cpu_limit" {
+  description = "The limited cpu specs for the for the Cloud Run service."
+  default     = "2000m"
+}
+
+variable "cloud_run_memory_limit" {
+  description = "The limited memory specs for the for the Cloud Run service."
+  default     = "2048Mi"
+}
+
+variable "cloud_run_container_port" {
+  description = "The port on which the Cloud Run service will listen"
+  default     = 8080
+}
+
+variable "cloud_run_max_scale" {
+  description = "The maximum number of containers that can be scaled up"
+  default     = 5
+}
+
+variable "cloud_run_min_scale" {
+  description = "The minimum number of containers that can be scaled up"
+  default     = 0
+}
+
+variable "cloud_run_vpc_access_egress" {
+  description = "Control outbound network access for the Cloud Run service"
+  default     = "private-ranges-only"
+}
+
+variable "cloud_run_cpu_throttling" {
+  description = "The degree to which the CPU usage of the Cloud Run service is limited during resource allocation"
+  default     = true
+}
+
+variable "cloud_run_session_affinity" {
+  description = "The degree to which requests from a client should be directed to the same container"
+  default     = true
+}
+
+variable "cloud_run_cpu_boost" {
+  description = "The degree to which a CPU boosts should be enabled to reduce startup time"
+  default     = true
+}
