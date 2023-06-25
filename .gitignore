@@ -1,9 +1,15 @@
+# Terraform executables
+terraform.exe
+
 # Local .terraform directories
 **/.terraform/*
 
 # .tfstate files
 *.tfstate
 *.tfstate.*
+
+# lock files
+.terraform.lock*
 
 # Crash log files
 crash.log
@@ -15,6 +21,16 @@ crash.*.log
 # to change depending on the environment.
 *.tfvars
 *.tfvars.json
+*.auto.tfvars
+
+# Exclude environment variables and credentials
+environments
+credentials
+
+# Exlude personal configuration
+providers.tf
+project.tf
+test.tf
 
 # Ignore override files as they are usually used to override resources locally and so
 # are not checked in
