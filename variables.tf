@@ -69,6 +69,7 @@ variable "cloud_run_service_account" {
 
 variable "cloud_run_service_image_location" {
   description = "The location of the image to use for the Cloud Run service."
+  default     = "nginx:alpine"
 }
 
 variable "cloud_run_cpu_request" {
@@ -93,7 +94,7 @@ variable "cloud_run_memory_limit" {
 
 variable "cloud_run_container_port" {
   description = "The port on which the Cloud Run service will listen"
-  default     = 8080
+  default     = 80
 }
 
 variable "cloud_run_max_scale" {
@@ -109,6 +110,11 @@ variable "cloud_run_min_scale" {
 variable "cloud_run_vpc_access_egress" {
   description = "Control outbound network access for the Cloud Run service"
   default     = "private-ranges-only"
+}
+
+variable "cloud_run_vpc_access_ingress" {
+  description = "Control inbound network access for the Cloud Run service"
+  default     = "internal-and-cloud-load-balancing"
 }
 
 variable "cloud_run_cpu_throttling" {
