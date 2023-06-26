@@ -1,30 +1,67 @@
+# Services enabled by the module
+resource "google_project_service" "project-services" {
+  for_each = toset([
+    "cloudresourcemanager.googleapis.com",
+    "iam.googleapis.com",
+    "artifactregistry.googleapis.com",
+    "run.googleapis.com",
+    "vpcaccess.googleapis.com",
+    "logging.googleapis.com",
+    "serviceusage.googleapis.com",
+  ])
+  service            = each.key
+  project            = var.project_id
+  disable_on_destroy = false
+}
+# VPC components
+resource "google_compute_network" "vpc_network" {
+  name                    = var.vpc_network_name
+  auto_create_subnetworks = false
+}
+resource "google_compute_subnetwork" "vpc_subnetwork" {
+  name          = var.vpc_subnet_name
+  region        = var.region
+  ip_cidr_range = var.vpc_subnet_ip_cidr_range
+  network       = google_compute_network.vpc_network.id
+  depends_on    = [google_compute_network.vpc_network]
+}
+resource "google_compute_subnetwork" "vpc_access_connector_subnet" {
+  name          = var.vpc_connector_subnet_name
+  region        = var.region
+  ip_cidr_range = var.vpc_connector_subnet_ip_cidr_range
+  network       = google_compute_network.vpc_network.id
+  depends_on    = [google_compute_network.vpc_network]
+}
+resource "google_vpc_access_connector" "vpc_access_connector" {
+  name         = var.vpc_connector_name
+  region       = var.region
+  machine_type = var.vpc_connector_machine_type
+  subnet {
+    name = google_compute_subnetwork.vpc_access_connector_subnet.name
+  }
+}
+# CLoud Run Service
 resource "google_cloud_run_service" "cloud_run_service" {
   name     = var.cloud_run_service_name
   location = var.region
   project  = var.project_id
-
   metadata {
     namespace = var.project_id
     annotations = {
       "run.googleapis.com/ingress" = var.cloud_run_vpc_access_ingress
     }
   }
-
   traffic {
     percent         = 100
     latest_revision = true
   }
-
   template {
     spec {
       container_concurrency = var.cloud_run_container_concurrency
       timeout_seconds       = var.cloud_run_timeout_seconds
       service_account_name  = var.cloud_run_service_account
-
       containers {
-
         image = var.cloud_run_service_image_location
-
         resources {
           requests = {
             cpu    = var.cloud_run_cpu_request
@@ -40,7 +77,6 @@ resource "google_cloud_run_service" "cloud_run_service" {
         }
       }
     }
-
     metadata {
       labels = {
         "environment" : terraform.workspace
@@ -63,4 +99,20 @@ resource "google_cloud_run_service" "cloud_run_service" {
     }
   }
   autogenerate_revision_name = true
+}
+# allow unauthenticated Requests
+data "google_iam_policy" "noauth" {
+  binding {
+    role = "roles/run.invoker"
+    members = [
+      "allUsers"
+    ]
+  }
+}
+resource "google_cloud_run_service_iam_policy" "noauth-env" {
+  location    = google_cloud_run_service.cloud_run_service.location
+  project     = google_cloud_run_service.cloud_run_service.project
+  service     = google_cloud_run_service.cloud_run_service.name
+  policy_data = data.google_iam_policy.noauth.policy_data
+  depends_on  = [google_cloud_run_service.cloud_run_service]
 }
