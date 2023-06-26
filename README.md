@@ -96,15 +96,32 @@ module "cloud_run_vpc_integration" {
   <OTHER_VARIABLES>
 }
 ```
+
+for example:
+
+```hcl
+module "cloud_run_vpc_integration" {
+  source                           = "github.com/RuneDD/GCP-CloudRun-VPC-Integration-Module"
+  project_id                       = var.project_id
+  region                           = "europe-west1"
+  vpc_network_name                 = "vpc-network"
+  vpc_subnet_name                  = "vpc-sub-network"
+  vpc_subnet_ip_cidr_range         = "10.0.0.0/24"
+  cloud_run_service_name           = "cloud-run-service"
+  cloud_run_service_account        = var.cloud_run_service_account
+  cloud_run_service_image_location = "nginx:alpine"
+}
+```
+
 2. Initialize and apply the changes.
 
 ## Show Your Support
 
 If this module helped you or saved your time, you can show your appreciation by:
 
-Following the author on GitHub: [RuneDD](github.com/RuneDD/).
-Staring this repository.
-Sharing this module with colleagues or friends who could benefit from it.
+- Following the author on GitHub: [RuneDD](github.com/RuneDD/).
+- Staring this repository.
+- Sharing this module with colleagues or friends who could benefit from it.
 
 ## License
 
