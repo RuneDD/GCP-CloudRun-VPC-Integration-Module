@@ -1,13 +1,13 @@
 # Terraform GCP Cloud Run with VPC Integration Module
 
-This Terraform module, **GCP CloudRun VPC Integration Module**, is designed to streamline the deployment of Google Cloud Run services, seamlessly integrated with a VPC network and a VPC connector. This module allows you to configure your Cloud Run service to establish secure communication with your VPC resources and private databases within the Google Cloud Platform (GCP) ecosystem.
+This [Terraform](https://terraform.io) module, **GCP CloudRun VPC Integration Module**, is designed to streamline the deployment of [Google Cloud Run](https://cloud.google.com/run/docs/overview/what-is-cloud-run) services, seamlessly integrated with a [VPC network](https://cloud.google.com/vpc/docs/vpc) and a VPC connector. This module allows you to configure your Cloud Run service to establish secure communication with your VPC resources and private databases within the [Google Cloud Platform (GCP)](https://cloud.google.com) ecosystem.
 
 ## Prerequisites
 
 Before you begin, ensure you have the following:
 
-- Terraform v1.x.x installed
-- Google Cloud SDK installed and configured with a valid project
+- Terraform `v1.x.x` installed
+- [Google Cloud SDK](https://cloud.google.com/sdk) installed and configured with a valid project
 - Proper IAM roles and permissions in GCP
 - Generated a service account key in JSON format and stored it in a secure place
 
@@ -21,18 +21,18 @@ provider "google" {
 }
 ```
 
-In the example above, replace <PATH_TO_SERVICE_ACCOUNT_KEY_JSON> with the path to your Service Account key JSON file and <PROJECT_ID> with your GCP Project ID. Also, be aware that you will need to provide a storage location for the Terraform state to be kept in.
+In the example above, replace `<PATH_TO_SERVICE_ACCOUNT_KEY_JSON>` with the path to your Service Account key JSON file and `<PROJECT_ID>` with your GCP Project ID. Also, be aware that you will need to provide a storage location for the Terraform state to be kept in.
 
-## Configuration Variables
+## Configuration variables
 
 The module uses the following variables for customization:
 
-### Project Variables
+### Project variables
 
 - `project_id`: The GCP project's ID where resources will be deployed. **(required)**
 - `region`: The region for resource deployment (default: `europe-west1`).
 
-### VPC Variables
+### VPC variables
 
 - `vpc_network_name`: Name of the VPC network to be created (default: `vpc-network`).
 - `vpc_subnet_name`: Name of the VPC subnet to be created (default: `vpc-sub-network`).
@@ -42,7 +42,7 @@ The module uses the following variables for customization:
 - `vpc_connector_subnet_ip_cidr_range`: IP CIDR range for the VPC connector subnet (default: `10.100.0.0/28`).
 - `vpc_connector_machine_type`: Machine type of the VPC access connector (default: `e2-micro`).
 
-### Cloud Run Service Variables
+### Cloud Run Service variables
 
 - `cloud_run_service_name`: Name of the Cloud Run service to be created (default: `cloud-run-service`).
 - `cloud_run_container_concurrency`: Number of simultaneous requests that can be processed by each container (default: `30`).
@@ -62,15 +62,16 @@ The module uses the following variables for customization:
 - `cloud_run_session_affinity`: Degree to which requests from a client should be directed to the same container (default: `true`).
 - `cloud_run_cpu_boost`: Determines whether a CPU boost should be enabled to reduce startup time (default: `true`).
 
-## How to Use this Module
+## How to use this module
 
-### Using it in a New Terraform Project
+### Using it in a new Terraform project
 
 1. Clone this repository from GitHub:
 
 ```bash
 git clone https://github.com/RuneDD/GCP-CloudRun-VPC-Integration-Module.git
 ```
+
 2. Navigate to the cloned directory and ensure you have Terraform installed:
 
 ```
@@ -78,15 +79,15 @@ cd GCP-CloudRun-VPC-Integration-Module
 terraform init
 ```
 
-3. Configure your variables in a terraform.tfvars file or pass them directly to the terraform apply command. Also, don't forget to modify the default values of the variables.tf file to change some of the optial variables too.
+3. Configure your variables in a `terraform.tfvars` file or pass them directly to the terraform apply command. Also, don't forget to modify the default values of the `variables.tf` file to change some of the optial variables too.
 
 4. Apply the configuration.
 
 5. Review the planned actions and confirm the apply command when prompted.
 
-You should now have your Google Cloud Run service with VPC integration up and running!
+You now should have the Google Cloud Run service with VPC integration up and running!
 
-### Integrating into an Existing Terraform Project
+### Integrating into an existing Terraform project
 
 1. Use this code block to integrate the module in your existing Terraform project:
 
@@ -125,4 +126,4 @@ If this module helped you or saved your time, you can show your appreciation by:
 
 ## License
 
-GCP-CloudRun-VPC-Integration-Module is released under the MIT License. See the associated LICENSE file for details.
+GCP-CloudRun-VPC-Integration-Module is released under the MIT License. See the associated [LICENSE](https://github.com/RuneDD/GCP-CloudRun-VPC-Integration-Module/blob/main/LICENSE) file for details.
