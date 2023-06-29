@@ -2,6 +2,8 @@
 
 This [Terraform](https://terraform.io) module, **GCP CloudRun VPC Integration Module**, is designed to streamline the deployment of [Google Cloud Run](https://cloud.google.com/run/docs/overview/what-is-cloud-run) services, seamlessly integrated with a [VPC network](https://cloud.google.com/vpc/docs/vpc) and a VPC connector. This module allows you to configure your Cloud Run service to establish secure communication with your VPC resources and private databases within the [Google Cloud Platform (GCP)](https://cloud.google.com) ecosystem.
 
+Please note: The creation of VPC components is optional. Depending on the specific needs of your project, you may choose whether or not to implement these.
+
 ## Prerequisites
 
 Before you begin, ensure you have the following:
@@ -34,6 +36,7 @@ The module uses the following variables for customization:
 
 ### VPC variables
 
+- `enable_vpc`: Set to 1 to enable VPC components to be created; 0 will ignore VPC creation (default: `1`).
 - `vpc_network_name`: Name of the VPC network to be created (default: `vpc-network`).
 - `vpc_subnet_name`: Name of the VPC subnet to be created (default: `vpc-sub-network`).
 - `vpc_subnet_ip_cidr_range`: IP CIDR range for the VPC subnet (default: `10.0.0.0/24`).
