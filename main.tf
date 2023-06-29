@@ -44,6 +44,7 @@ resource "google_vpc_access_connector" "vpc_access_connector" {
     name = google_compute_subnetwork.vpc_access_connector_subnet.name
   }
 }
+# VPC components toggle
 locals {
   common_annotations = {
     # Scaling behaviour
@@ -61,6 +62,7 @@ locals {
     "run.googleapis.com/vpc-access-connector" = google_vpc_access_connector.vpc_access_connector[0].name
   } : {}
 }
+# CloudRun Service
 resource "google_cloud_run_service" "cloud_run_service" {
   name     = var.cloud_run_service_name
   location = var.region
