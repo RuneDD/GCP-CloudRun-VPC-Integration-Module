@@ -25,6 +25,26 @@ provider "google" {
 
 In the example above, replace `<PATH_TO_SERVICE_ACCOUNT_KEY_JSON>` with the path to your Service Account key JSON file and `<PROJECT_ID>` with your GCP Project ID. Also, be aware that you will need to provide a storage location for the Terraform state to be kept in.
 
+## Required APIs
+
+The module requires several Google Cloud APIs to be enabled for the project. Here's a brief description of each:
+
+1. `cloudresourcemanager.googleapis.com`: The Cloud Resource Manager API is a service that enables you to programmatically manage the resource containers (such as Organizations and Projects) that hold your Google Cloud Platform (GCP) resources.
+
+2. `iam.googleapis.com`: The Identity and Access Management (IAM) API enables you to manage access control by defining who (identity) has what access (role) for which resource.
+
+3. `artifactregistry.googleapis.com`: Artifact Registry is a package hosting and delivery service that helps you to manage, secure, and observe packages used in your software development process.
+
+4. `run.googleapis.com`: The Cloud Run API manages instances of your container-based applications and provides built-in mechanisms to scale the instances, inject environment variables, and configure allowed inbound traffic.
+
+5. `vpcaccess.googleapis.com`: The Serverless VPC Access API lets you create connectors that connect Google Cloud serverless services directly to your VPC network. This enables your serverless applications to access resources in your VPC network.
+
+6. `logging.googleapis.com`: The Cloud Logging API allows you to read, write, and configure logs in Google Cloud.
+
+7. `serviceusage.googleapis.com`: The Service Usage API provides methods to enable, disable, list and retrieve service configurations for a project.
+
+_⚠️ These APIs are enabled in the code, and they are not disabled when the resources are destroyed (`disable_on_destroy = false`)._
+
 ## Configuration variables
 
 The module uses the following variables for customization:
@@ -143,10 +163,10 @@ I will do my best to review and respond to your issue in a timely manner.
 Your contributions are always welcome! If you have a fix or improvement you'd like to contribute, you can create a pull request following the standard GitHub process:
 
 1. Fork the repository and create your branch from `main`.
-2. If you've added code that should be tested, add tests.
-3. If you've changed APIs, update the documentation.
-4. Ensure the test suite passes.
-5. Make sure your code lints.
+2. If you've added code that should be tested, add tests and fallbacks.
+3. If you've changed APIs or added variables update the documentation.
+4. Ensure the configuration works and is valid (terraform validate).
+5. Make sure your is formatted correctly (terraform fmt).
 6. Issue that pull request!
 
 By contributing, you agree that your contributions will be licensed under the project's license.
