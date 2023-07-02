@@ -2,6 +2,8 @@
 
 This [Terraform](https://terraform.io) module, **GCP CloudRun VPC Integration Module**, is designed to streamline the deployment of [Google Cloud Run](https://cloud.google.com/run/docs/overview/what-is-cloud-run) services, seamlessly integrated with a [VPC network](https://cloud.google.com/vpc/docs/vpc) and a VPC connector. This module allows you to configure your Cloud Run service to establish secure communication with your VPC resources and private databases within the [Google Cloud Platform (GCP)](https://cloud.google.com) ecosystem.
 
+Please note: The creation of VPC components is optional. Depending on the specific needs of your project, you may choose whether or not to implement these.
+
 ## Prerequisites
 
 Before you begin, ensure you have the following:
@@ -23,6 +25,26 @@ provider "google" {
 
 In the example above, replace `<PATH_TO_SERVICE_ACCOUNT_KEY_JSON>` with the path to your Service Account key JSON file and `<PROJECT_ID>` with your GCP Project ID. Also, be aware that you will need to provide a storage location for the Terraform state to be kept in.
 
+## Required APIs
+
+The module requires several Google Cloud APIs to be enabled for the project. Here's a brief description of each:
+
+1. `cloudresourcemanager.googleapis.com`: The Cloud Resource Manager API is a service that enables you to programmatically manage the resource containers (such as Organizations and Projects) that hold your Google Cloud Platform (GCP) resources.
+
+2. `iam.googleapis.com`: The Identity and Access Management (IAM) API enables you to manage access control by defining who (identity) has what access (role) for which resource.
+
+3. `artifactregistry.googleapis.com`: Artifact Registry is a package hosting and delivery service that helps you to manage, secure, and observe packages used in your software development process.
+
+4. `run.googleapis.com`: The Cloud Run API manages instances of your container-based applications and provides built-in mechanisms to scale the instances, inject environment variables, and configure allowed inbound traffic.
+
+5. `vpcaccess.googleapis.com`: The Serverless VPC Access API lets you create connectors that connect Google Cloud serverless services directly to your VPC network. This enables your serverless applications to access resources in your VPC network.
+
+6. `logging.googleapis.com`: The Cloud Logging API allows you to read, write, and configure logs in Google Cloud.
+
+7. `serviceusage.googleapis.com`: The Service Usage API provides methods to enable, disable, list and retrieve service configurations for a project.
+
+_⚠️ These APIs are enabled in the code, and they are not disabled when the resources are destroyed (`disable_on_destroy = false`)._
+
 ## Configuration variables
 
 The module uses the following variables for customization:
@@ -34,6 +56,7 @@ The module uses the following variables for customization:
 
 ### VPC variables
 
+- `enable_vpc`: Set to 1 to enable VPC components to be created; 0 will ignore VPC creation (default: `1`).
 - `vpc_network_name`: Name of the VPC network to be created (default: `vpc-network`).
 - `vpc_subnet_name`: Name of the VPC subnet to be created (default: `vpc-sub-network`).
 - `vpc_subnet_ip_cidr_range`: IP CIDR range for the VPC subnet (default: `10.0.0.0/24`).
@@ -56,7 +79,7 @@ The module uses the following variables for customization:
 - `cloud_run_container_port`: Port on which the Cloud Run service will listen (default: `80`).
 - `cloud_run_max_scale`: Maximum number of containers that can be scaled up (default: `5`).
 - `cloud_run_min_scale`: Minimum number of containers that can be scaled up (default: `0`).
-- `cloud_run_vpc_access_egress`: Controls outbound network access for the Cloud Run service (default: `private-ranges-only`).
+- `cloud_run_vpc_access_egress`: Controls outbound network access for the Cloud Run service (default: `private-ranges-only`) _⚠️ This feature will only be used when "enable_vpc" is set to "1"._
 - `cloud_run_vpc_access_ingress`: Manages inbound network access for the Cloud Run service (default: `internal-and-cloud-load-balancing`).
 - `cloud_run_cpu_throttling`: Degree to which the CPU usage of the Cloud Run service is limited during resource allocation (default: `true`).
 - `cloud_run_session_affinity`: Degree to which requests from a client should be directed to the same container (default: `true`).
@@ -115,6 +138,38 @@ module "cloud_run_vpc_integration" {
 ```
 
 2. Initialize and apply the changes.
+
+## Reporting Issues
+
+As the maintainer of this Terraform module, I highly appreciate your feedback. If you encounter any issues, I encourage you to report them. 
+
+To create a new issue, please follow these steps:
+
+1. Navigate to the **Issues** tab in the GitHub repository and click on the **New issue** button.
+2. In the issue description, please provide as much relevant information as possible, such as:
+   - Terraform version
+   - Provider versions (Google, etc.)
+   - A brief description of the issue
+   - Step-by-step instructions to reproduce the issue
+   - Relevant code and configurations
+   - Error messages and screenshots
+3. If possible, label your issue appropriately.
+4. Finally, click **Submit new issue** to create the issue.
+
+I will do my best to review and respond to your issue in a timely manner. 
+
+## Contributing
+
+Your contributions are always welcome! If you have a fix or improvement you'd like to contribute, you can create a pull request following the standard GitHub process:
+
+1. Fork the repository and create your branch from `main`.
+2. If you've added code that should be tested, add tests and fallbacks.
+3. If you've changed APIs or added variables update the documentation.
+4. Ensure the configuration works and is valid (terraform validate).
+5. Make sure your is formatted correctly (terraform fmt).
+6. Issue that pull request!
+
+By contributing, you agree that your contributions will be licensed under the project's license.
 
 ## Show Your Support
 

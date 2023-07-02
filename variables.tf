@@ -11,6 +11,11 @@ variable "region" {
 
 # VPC variables
 
+variable "enable_vpc" {
+  description = "Whether the VPC components are created"
+  default     = 1
+}
+
 variable "vpc_network_name" {
   description = "The name of the VPC network to create."
   default     = "vpc-network"
