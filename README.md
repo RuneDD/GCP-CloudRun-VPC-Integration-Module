@@ -59,7 +59,7 @@ The module uses the following variables for customization:
 - `cloud_run_container_port`: Port on which the Cloud Run service will listen (default: `80`).
 - `cloud_run_max_scale`: Maximum number of containers that can be scaled up (default: `5`).
 - `cloud_run_min_scale`: Minimum number of containers that can be scaled up (default: `0`).
-- `cloud_run_vpc_access_egress`: Controls outbound network access for the Cloud Run service (default: `private-ranges-only`).
+- `cloud_run_vpc_access_egress`: Controls outbound network access for the Cloud Run service (default: `private-ranges-only`) _⚠️ This feature will only be used when "enable_vpc" is set to "1"._
 - `cloud_run_vpc_access_ingress`: Manages inbound network access for the Cloud Run service (default: `internal-and-cloud-load-balancing`).
 - `cloud_run_cpu_throttling`: Degree to which the CPU usage of the Cloud Run service is limited during resource allocation (default: `true`).
 - `cloud_run_session_affinity`: Degree to which requests from a client should be directed to the same container (default: `true`).
@@ -118,6 +118,38 @@ module "cloud_run_vpc_integration" {
 ```
 
 2. Initialize and apply the changes.
+
+## Reporting Issues
+
+As the maintainer of this Terraform module, I highly appreciate your feedback. If you encounter any issues, I encourage you to report them. 
+
+To create a new issue, please follow these steps:
+
+1. Navigate to the **Issues** tab in the GitHub repository and click on the **New issue** button.
+2. In the issue description, please provide as much relevant information as possible, such as:
+   - Terraform version
+   - Provider versions (Google, etc.)
+   - A brief description of the issue
+   - Step-by-step instructions to reproduce the issue
+   - Relevant code and configurations
+   - Error messages and screenshots
+3. If possible, label your issue appropriately.
+4. Finally, click **Submit new issue** to create the issue.
+
+I will do my best to review and respond to your issue in a timely manner. 
+
+## Contributing
+
+Your contributions are always welcome! If you have a fix or improvement you'd like to contribute, you can create a pull request following the standard GitHub process:
+
+1. Fork the repository and create your branch from `main`.
+2. If you've added code that should be tested, add tests.
+3. If you've changed APIs, update the documentation.
+4. Ensure the test suite passes.
+5. Make sure your code lints.
+6. Issue that pull request!
+
+By contributing, you agree that your contributions will be licensed under the project's license.
 
 ## Show Your Support
 
