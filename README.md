@@ -4,6 +4,12 @@ This [Terraform](https://terraform.io) module, **GCP CloudRun VPC Integration Mo
 
 Please note: The creation of VPC components is optional. Depending on the specific needs of your project, you may choose whether or not to implement these.
 
+## Roadmap
+
+- Integrating [Direct VPC egress with a VPC network](https://cloud.google.com/run/docs/configuring/vpc-direct-vpc#console)
+
+    => This feature is still in [preview](https://cloud.google.com/products#product-launch-stages) and I will integrate its functionally into the module once it becomes general available.
+
 ## Prerequisites
 
 Before you begin, ensure you have the following:
